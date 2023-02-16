@@ -1,0 +1,4 @@
+::1 - - [16/Feb/2023:12:14:35 +0000] "GET /favicon.ico HTTP/1.1" 200 3832 "http://localhost:4000/home.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+::1 - - [16/Feb/2023:12:15:19 +0000] "POST /user/signup HTTP/1.1" 201 51 "http://localhost:4000/home.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+::1 - - [16/Feb/2023:12:17:04 +0000] "POST /user/signup HTTP/1.1" 201 51 "http://localhost:4000/home.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+::1 - - [16/Feb/2023:12:18:04 +0000] "POST /user/signup HTTP/1.1" 201 51 "http://localhost:4000/home.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"

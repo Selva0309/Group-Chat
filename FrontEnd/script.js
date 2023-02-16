@@ -14,7 +14,7 @@ function signup(){
     const password = document.getElementById('password').value;
     console.log(name, phone, email, password);
 
-    axios.post('http://localhost:4000/signup',{name: name, phone: phone, email:email, password:password})
+    axios.post('http://localhost:4000/user/signup',{name: name, phone: phone, email:email, password:password})
     .then((response)=>{
         if(response.status==201){
         message = response.data.message;
