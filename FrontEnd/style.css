@@ -14,21 +14,24 @@ body{
 
 .header-nav{
     width: 100%;
-    height: 60px;
+    height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: left;
     align-items: center;
+    margin: none;
 }
 
 .header-nav h1{
     font-size: 30px;
     text-transform: uppercase;
-    color: #340941;
+   color: #460a2e;
+   text-shadow: #051937;
     margin-left: 10px;
     letter-spacing: 1px;
     font-family: Russo One, sans-serif;
     font-weight: bolder;
+    
 }
 
 .signup-container{
@@ -249,10 +252,39 @@ li {
     flex-direction: column;
     justify-content: space-between;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.7)
 }
 
 .login-container.container-head h2{
     display: inherit;
 }
 
+
+.forgot-btn {
+    text-decoration: none;
+    color: rgb(43, 193, 238);
+    background: none;
+    border: none;
+    width: 35%;
+    position: relative;
+    left: 2%;
+    cursor: pointer;
+    margin: 1% auto;
+    font-size: 14px;
+}
+
+.forgot-btn:hover {
+    border-bottom: 2px solid #F25922;
+}
+
+.forgetpassword-container{
+    width: 30%;
+    height: auto;
+    margin: 25px auto;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.7);
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7)
+}

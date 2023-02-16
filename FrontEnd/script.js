@@ -58,41 +58,32 @@ function showsignuppage(){
     
 }
 
-function login(){
-
-    
+async function login(){
+    try{
     const email = document.getElementById('useremail').value;
     const password = document.getElementById('userpassword').value;
     console.log(email, password);
-
-    axios.post('http://52.196.64.49/user/login',{email:email, password:password})
-    .then((response) =>{
-              
-        message = response.data.message;
-        success = response.data.success;
-        token = response.data.token;
-        premium = response.data.premium;
-        // Status = response.status;
-        // console.log(Status, message);
-        if(success==true){
+    const loginresponse = await axios.post('http://localhost:4000/user/login',{email:email, password:password})
+        message = loginresponse.data.message;
+        success = loginresponse.data.success;
+        token = loginresponse.data.token;
+         if(success==true){
             notifyUser(message);
             localStorage.setItem('token', token);
-            localStorage.setItem('premium', premium);
-            window.location.assign('/Expenses.html');           
+            window.location.assign('/chat.html');           
 
-        } 
-        
-        // showloginpage();
-    }). catch(err => {
-        if(err.response.status == 400){
-            notifyUser(err.response.data.message);
-        } else if (err.response.status == 404){
-            notifyUser(err.response.data.message);
+        }if(loginresponse.status == 400){
+            notifyUser(message);
+        } else if (loginresponse.status == 404){
+            notifyUser(message);
             setTimeout(()=>{
                 window.location.reload();
-            }, 4000)
+            }, 3000)
         }
-    })
+    } catch (err) {
+        console.log(err)
+    }
+    
 }
 document.querySelector('.forgot-btn').addEventListener('click', forgotpasswordpage => {
     document.querySelector('.login-container').style = 'display: none;';
