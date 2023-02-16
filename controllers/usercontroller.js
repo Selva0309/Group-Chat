@@ -26,9 +26,10 @@ exports.signup=async(req,res,next)=>{
                     email: email,
                     password: hash
                 })
+                console.log('User created')    
+                return res.status(201).json({success: true, message:"Signed up successfully"})    
             })
-            console.log('User created')    
-            return res.status(201).json({success: true, message:"Signed up successfully"})
+            
             
 }
 }catch(err) {
