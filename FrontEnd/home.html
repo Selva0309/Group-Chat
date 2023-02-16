@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Sign-Up</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js" defer></script> 
+    </head>
+<body>
+    <section class="header-nav">
+        <h1>GROUP CHAT APP</h1>
+    </section>
+    <section class="notification-container"></section>
+   
+    <section class="signup-container">
+        <div class="container-head">
+            <div><h2>Sign Up</h2></div>
+            <div class="media">
+                <li><a href="#" class="fa fa-facebook"></a></li>
+                <li><a href="#" class="fa fa-twitter"></a></li>
+                <li><a href="#" class="fa fa-google"></a></li>
+            </div>
+        </div>
+        <h3>Please Enter the below fields for signing up</h3>
+        <form class="form-control" id="form-control">
+           
+            <div>
+                <label>Name</label>
+                <input type="text" id ='name' name="name" required placeholder="Name"/>
+            </div>
+            <div>
+                <label>Phone</label>
+                <input type="text" id ='phone' name="phone" required placeholder="Mobile Number"/>
+            </div>
+            <div >
+                <label >Email</label>
+                <input type="text" id ='email' name="email" required placeholder="sample@abc.com"/>
+            </div>
+            <div >
+                <label>Create Password</label>
+                <input type="password" id ='password' name="password" required placeholder="password"/>
+            </div>
+            <button class="btn" type="button" id="signup">Sign-Up</button>
+                                 
+        </form>
+        <div class="existing-user">
+            <P>Already an existing User   <button class="login-btn" type="button" id='showlogin'>Login</button> </P>
+        </div>
+    </section>
+    
+    <section class="login-container">
+        <div class="container-head">
+            <div><h2>Login</h2></div>
+            <div class="media">
+                <li><a href="#" class="fa fa-facebook"></a></li>
+                <li><a href="#" class="fa fa-twitter"></a></li>
+                <li><a href="#" class="fa fa-google"></a></li>
+            </div>
+        </div>
+        <h3>Please Enter the below fields for log in</h3>
+        <form class="form-control" id="login-form-control">
+           
+            
+            <div >
+                <label >Enter Your Email</label>
+                <input type="text" id ='useremail' name="email" required placeholder="sample@abc.com"/>
+            </div>
+            <div >
+                <label>Enter Your Password</label>
+                <input type="password" id ='userpassword' name="password" required placeholder="password"/>
+                
+            </div>
+            <button class="btn" type="button" id='login'>Login</button>
+                                 
+        </form>
+        <button class='forgot-btn'>Forgot Password?</button> 
+        <div class="existing-user">
+            <P>Not an existing User   <button class="login-btn" type="button" id="showsignup">Sign up</button> </P>
+        </div>
+    </section>
+
+    <div class="forgetpassword-container">
+        <div class="inner-container">
+            <label >Your Email</label>
+            <input type="text" id ='forgotemail' name="email" required placeholder="sample@abc.com"/>
+        </div>    
+        <button class="btn" type="button" onclick="sendEmail()">Click here to send Email</button>
+        
+        
+    </div>
+</body>
+
+
+</html>
