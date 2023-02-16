@@ -35,3 +35,40 @@ exports.signup=async(req,res,next)=>{
 }catch(err) {
     console.log(err)
 }}
+
+
+exports.loginuser= async (req,res,next)=>{
+    // console.log(req.body,req.params, req.data);
+    try{
+    const email = req.body.email;
+    const password = req.body.password;
+    const existinguser = await User.findOne({where: {email: email}})
+    if (existinguser){
+            bcrypt.compare(password, existinguser.password, (err,result)=>{
+                console.log(result);
+                if (err){
+                    throw new Error('Something went wrong');
+                }
+                if(result === true){
+                    return res.status(201).json({success: true, message:"Logged in successfully", token: accesstoken(existinguser.id,existinguser.name)})
+                    // res.redirect('/Expenses.html');
+                }
+                else {
+                    return res.status(401).json({success: false, message:"Incorrect password!!"})
+                }
+            })
+                
+        }else{
+           return res.status(404).json({success: false, message:"User does not exists. Please signup with details"})
+        }
+
+} catch (err) {
+    console.log(err);
+}     
+};
+
+function accesstoken(id,name){
+    let token = jwt.sign({userId: id, name:name},process.env.SIGN_KEY)
+    console.log(token);
+    return token;
+}   

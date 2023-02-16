@@ -288,3 +288,9 @@ li {
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.7)
 }
+.errorcontainer h2{
+ font-size: 16px;
+ font-family: inherit;
+ color: #F25922;
+ text-align: center;
+}

@@ -5,6 +5,7 @@ document.getElementById('signup').addEventListener('click',signup);
 document.getElementById('showlogin').addEventListener('click',showloginpage);
 document.getElementById('login').addEventListener('click',login);
 document.getElementById('showsignup').addEventListener('click',showsignuppage);
+const errorcontainer = document.querySelector('.errorcontainer');
 
 function signup(){
 
@@ -64,24 +65,26 @@ async function login(){
     const password = document.getElementById('userpassword').value;
     console.log(email, password);
     const loginresponse = await axios.post('http://localhost:4000/user/login',{email:email, password:password})
-        message = loginresponse.data.message;
-        success = loginresponse.data.success;
-        token = loginresponse.data.token;
+    console.log(loginresponse);
+    const message = loginresponse.data.message;
+    const success = loginresponse.data.success;
+    const token = loginresponse.data.token;
+        console.log(token);
+        
          if(success==true){
             notifyUser(message);
             localStorage.setItem('token', token);
             window.location.assign('/chat.html');           
 
-        }if(loginresponse.status == 400){
-            notifyUser(message);
-        } else if (loginresponse.status == 404){
-            notifyUser(message);
-            setTimeout(()=>{
-                window.location.reload();
-            }, 3000)
-        }
+        } 
     } catch (err) {
-        console.log(err)
+        console.log(err);
+        const error = document.createElement('h2');
+        error.innerHTML=`${err.response.data.message}`;
+        errorcontainer.appendChild(error);
+        setTimeout(()=>{
+            errorcontainer.innerHTML='';
+        },2000)
     }
     
 }
