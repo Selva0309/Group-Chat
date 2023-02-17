@@ -8,9 +8,11 @@ var cors = require('cors');
 
 //models
 const User = require('./model/user');
+const Message = require('./model/messages')
 
 //routes
 const userroute= require('./routes/user-route');
+const messageroute = require('./routes/messages')
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {flags: 'a'})
 
@@ -38,10 +40,14 @@ app.use(
 app.use(morgan('combined', {stream: accessLogStream}));
 
 app.use('/user', userroute);
+app.use('/message', messageroute)
 
 app.use((req,res)=>{
     res.sendFile(path.join(__dirname, "Frontend/home.html"))
 })
+
+User.hasMany(Message);
+Message.belongsTo(User);
 
 sequelize.sync()
 .then(result=>{
