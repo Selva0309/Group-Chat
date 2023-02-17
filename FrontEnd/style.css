@@ -294,3 +294,54 @@ li {
  color: #F25922;
  text-align: center;
 }
+
+.chatwindow{
+    width: 40%;
+    height: 80vh;
+    margin: 0.5% auto;
+    padding: 1%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+.sendmessage{
+    width: 40%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 0.5% auto;
+    padding: 1%;
+    border-radius: 5px;
+    
+}
+
+.sendmessage input{
+    width: 86%;
+    height: 25%;
+    padding: 1%;
+    background-color: inherit;
+    border: 2px solid #F25922;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #F25922;
+}
+
+.send-btn{
+    width: 12%;
+    background-color: #F25922;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 1%;
+    margin-left: 1%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+.send-btn:hover{
+    background-color: #922065;
+    color: #FEBE10;
+    border: 2px solid #F25922;
+    
+}

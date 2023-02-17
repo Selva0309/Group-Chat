@@ -79,13 +79,11 @@ async function login(){
         } 
     } catch (err) {
         console.log(err);
+        errorcontainer.innerHTML='';
         const error = document.createElement('h2');
         error.innerHTML=`${err.response.data.message}`;
         errorcontainer.appendChild(error);
-        setTimeout(()=>{
-            errorcontainer.innerHTML='';
-        },2000)
-    }
+        }
     
 }
 document.querySelector('.forgot-btn').addEventListener('click', forgotpasswordpage => {
