@@ -1,12 +1,14 @@
 const chatwindow = document.querySelector('.chatwindow');
+chatwindow.scrollIntoView({block: "end"});
 var user = localStorage.getItem('currentuser');
-// setInterval(() => {
-//     chatwindow.innerHTML='';
-//     getmessages();
-// }, 1000);
-window.addEventListener('DOMContentLoaded',()=>{
-    setInterval(getmessages(), 1000);
-})
+clearInterval();
+setInterval(() =>{
+    chatwindow.innerHTML='';
+        getmessages() }, 1000)
+
+// window.addEventListener('DOMContentLoaded',()=>{
+// getmessages();    
+// })
 
 async function sendmessage() {
     const token = localStorage.getItem('token');
@@ -39,7 +41,9 @@ async function getmessages(){
         console.log(messages.data.messages);
         const allmessages = messages.data.messages;
         allmessages.forEach(message =>{
-            const time = message.time;
+            // const time = message.time;
+            const newTIME = new Date(message.createdAt);
+            const time = newTIME.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
             const name = (message.user.id == user) ? 'You' : message.user.name;
             const text = message.messagetext;
             const classname = (name == 'You') ? 'You' : 'Otheruser'
@@ -51,6 +55,7 @@ async function getmessages(){
             <div id='time'>${time}</div>
             `
             chatwindow.appendChild(messagecontainer)
+        
         })
 
     } catch(err) {
