@@ -17,9 +17,12 @@ exports.sendmessage = async (req, res, next)=>{
 
 exports.getmessages = async (req,res,next) =>{
     try{
-
-        const allmessages = await Message.findAll({
-            attributes: ['id', 'messagetext', 'createdAt',[sequelize.fn('Time', sequelize.col('messages.createdAt')),'time'], [sequelize.fn('DATE', sequelize.col('messages.createdAt')),'date']],
+        const lastmsgid = +req.params.lastmsgid;
+        console.log(lastmsgid);
+        const newmessages = await Message.findAll({
+            attributes: ['id', 'messagetext', 'createdAt'],
+            offset: lastmsgid,
+            subQuery: false,
             include: [
                 {
                     model: User,
@@ -28,7 +31,7 @@ exports.getmessages = async (req,res,next) =>{
             ],
             
         });
-        res.status(200).json({success: true, messages: allmessages})
+        res.status(200).json({success: true, messages: newmessages})
 
     }catch(err) {
         console.log(err);

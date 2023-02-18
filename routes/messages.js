@@ -10,6 +10,6 @@ const UserAuth = require('../middleware/authentication');
 const messagecontroller = require('../controllers/messagecontroller');
 
 router.post('/send', UserAuth.authenticate, messagecontroller.sendmessage)
-router.get('/getmessage', messagecontroller.getmessages)
+router.get('/getmessage/:lastmsgid', messagecontroller.getmessages)
 
 module.exports = router;
