@@ -50,7 +50,7 @@ exports.loginuser= async (req,res,next)=>{
                     throw new Error('Something went wrong');
                 }
                 if(result === true){
-                    return res.status(201).json({success: true, message:"Logged in successfully", token: accesstoken(existinguser.id,existinguser.name)})
+                    return res.status(201).json({success: true, message:"Logged in successfully", token: accesstoken(existinguser.id,existinguser.name), id : existinguser.id})
                     // res.redirect('/Expenses.html');
                 }
                 else {

@@ -302,7 +302,24 @@ li {
     padding: 1%;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
+
+.chatwindow::-webkit-scrollbar {
+    width: 8px;               /* width of the entire scrollbar */
+  }
+  
+  .chatwindow::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.7);        /* color of the tracking area */
+    border-radius: 5px;
+  }
+  
+  .chatwindow::-webkit-scrollbar-thumb {
+    background-color: #300a46;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    }
 .sendmessage{
     width: 40%;
     height: auto;
@@ -344,4 +361,59 @@ li {
     color: #FEBE10;
     border: 2px solid #F25922;
     
+}
+
+.Otheruser{
+    width: 70%;
+    background-color: #0f7a88f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1%;
+    margin-right: 40%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: left;
+    border-radius: 5px;
+    position: relative;
+}
+
+.You{
+    width: 60%;
+    height: auto;
+    background-color: rgb(26, 99, 77);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1%;
+    margin-left: 40%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: left;
+    border-radius: 5px;
+    position: relative;
+}
+
+#name{
+    font-size: 14px;
+    font-weight: bolder;
+    color: #F25922;
+    width: 100%;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#text{
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 1%;
+    color: #fff;
+    }
+#time {
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+    color: darkgray;
 }

@@ -14,3 +14,23 @@ exports.sendmessage = async (req, res, next)=>{
         console.log(err)
     }
 }
+
+exports.getmessages = async (req,res,next) =>{
+    try{
+
+        const allmessages = await Message.findAll({
+            attributes: ['id', 'messagetext', [sequelize.fn('TIME', sequelize.col('messages.createdAt')),'time'], [sequelize.fn('DATE', sequelize.col('messages.createdAt')),'date']],
+            include: [
+                {
+                    model: User,
+                    attributes:['id','name']
+                }
+            ]
+            
+        });
+        res.status(200).json({success: true, messages: allmessages})
+
+    }catch(err) {
+        console.log(err);
+    }
+}

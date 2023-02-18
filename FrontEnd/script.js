@@ -69,11 +69,13 @@ async function login(){
     const message = loginresponse.data.message;
     const success = loginresponse.data.success;
     const token = loginresponse.data.token;
+    const id = loginresponse.data.id;
         console.log(token);
         
          if(success==true){
             notifyUser(message);
             localStorage.setItem('token', token);
+            localStorage.setItem('currentuser', id);
             window.location.assign('/chat.html');           
 
         } 
