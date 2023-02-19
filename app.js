@@ -9,10 +9,12 @@ var cors = require('cors');
 //models
 const User = require('./model/user');
 const Message = require('./model/messages')
-
+const Group = require('./model/groups');
+const Usergroup = require('./model/usergroup');
 //routes
 const userroute= require('./routes/user-route');
 const messageroute = require('./routes/messages')
+const grouproute = require('./routes/grouproute');
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {flags: 'a'})
 
@@ -41,13 +43,20 @@ app.use(morgan('combined', {stream: accessLogStream}));
 
 app.use('/user', userroute);
 app.use('/message', messageroute)
+app.use('/group', grouproute);
 
 app.use((req,res)=>{
     res.sendFile(path.join(__dirname, "Frontend/home.html"))
 })
 
+User.hasMany(Group);
+Group.belongsToMany(User, {through: Usergroup})
+
 User.hasMany(Message);
 Message.belongsTo(User);
+
+Group.hasMany(Message);
+Message.belongsTo(Group);
 
 sequelize.sync()
 .then(result=>{

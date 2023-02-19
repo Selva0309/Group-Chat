@@ -2,12 +2,18 @@ const path = require('path');
 const Message = require('../model/messages');
 const User = require('../model/user')
 const sequelize = require('../utils/database');
+const { Sequelize, Op } = require("sequelize");
 
 exports.sendmessage = async (req, res, next)=>{
     try{
         const messagecontent = req.body.message;
+        const type = req.body.type;
+        const groupid = req.body.groupid;
+        
         const updatemessage = await req.user.createMessage({
-                messagetext: messagecontent            
+                messagetext: messagecontent,
+                type: type,
+                groupId: groupid            
         })
         res.status(200).json({success:true, message:"Message Sent"}) 
     } catch(err){
@@ -17,11 +23,18 @@ exports.sendmessage = async (req, res, next)=>{
 
 exports.getmessages = async (req,res,next) =>{
     try{
-        const lastmsgid = +req.params.lastmsgid;
-        console.log(lastmsgid);
+        const lastmsgid = +req.query.messageid;
+        const groupid = +req.query.groupid;
+        console.log(lastmsgid, groupid);
+
         const newmessages = await Message.findAll({
-            attributes: ['id', 'messagetext', 'createdAt'],
-            offset: lastmsgid,
+            where:{
+                groupId: groupid,
+                id: {
+                    [Op.gt]: lastmsgid
+                }
+            },
+            attributes: ['id', 'messagetext','type', 'createdAt', 'groupId'],
             subQuery: false,
             include: [
                 {

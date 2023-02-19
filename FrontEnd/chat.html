@@ -14,15 +14,52 @@
         <h1>GROUP CHAT APP</h1>
     </section>
     <section class="notification-container"></section>
-    <section class="chatwindow">
+    <section class="overallpage">
+    <section class="chatlist">
+        <h2>Chat list</h2>
+        <button class="createbtn" onclick="showcard()">+ Create GROUP</button>
+        
+        <section class="chats">
+            <p> There is no chat to display</p>
+        </section>
+    </section>    
+        
+    
+    <section class="chatcontainer">
+        <div class="headerbar">
 
+        </div>
+        <section class="chatwindow">
+            
+
+        </section>
+        <section class="sendmessage">
+            <input type="text" id="messagecontent">
+            <button type="button" class="send-btn" onclick="sendmessage()">Send</button>
+        </section>
     </section>
-    <section class="sendmessage">
-        <input type="text" id="messagecontent">
-        <button type="button" class="send-btn" onclick="sendmessage()">Send</button>
-    </section>
+</section>
+
+<section class ='creategroup'>
+        <img src="./Group icon.png" alt="Groupicon">
+        <label>Enter Group name</label>
+        <input type="text" id ='groupname' name="groupname" required/>
+        <button class="create" onclick="creategroup()">Create</button>
+    
+    
+</section>
+
+ <div class="userslist">
+        <span> Select the users</span>
+        <div class="user">
+         <label id="username">Selva</label>
+         <input type="hidden"id='1'>
+         <button class="adduser">Add user</button>   
+        </div>
+    </div>
+
+
 </body>
 
 
 </html>
-   
