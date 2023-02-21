@@ -49,8 +49,10 @@ app.use((req,res)=>{
     res.sendFile(path.join(__dirname, "Frontend/home.html"))
 })
 
-User.hasMany(Group);
+
 Group.belongsToMany(User, {through: Usergroup})
+User.belongsToMany(Group, {through: Usergroup})
+
 
 User.hasMany(Message);
 Message.belongsTo(User);

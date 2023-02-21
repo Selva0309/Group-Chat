@@ -1,3 +1,4 @@
+const { Sequelize, Op } = require("sequelize");
 const User = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -71,4 +72,17 @@ function accesstoken(id,name){
     let token = jwt.sign({userId: id, name:name},process.env.SIGN_KEY)
     console.log(token);
     return token;
-}   
+}
+
+exports.getusers= async(req,res,next)=> {
+    try{
+        const users = await User.findAll({
+            attributes: ['id', 'name'] 
+        });
+        // console.log(users);
+        res.status(200).json({message: users});
+    } catch(error){
+        console.log(error);
+    }
+
+}

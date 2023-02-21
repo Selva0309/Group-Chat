@@ -397,9 +397,9 @@ li {
      margin-left: 1%;
      margin-right: 1%;
      position: fixed;
-     top: 19%;
-     left: 0.5%;
-     transition: all .5s ease;
+     top: 18%;
+     left: 1%;
+     transition: all .5s ease-in-out;
      /* transform: translateY(-110%); */
 }
 
@@ -454,6 +454,20 @@ li {
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: scroll;
+    
+}
+
+.closebtn{
+    font-size: 16px;
+    font-weight: bolder;
+    color: #fff;
+    background-color: inherit;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    width:10%;
+    right: 1%;
+    top: -2%;
 }
 
 .userslist span{
@@ -463,10 +477,15 @@ li {
     color: #FEBE10;
     margin: 2%
 }
-
+.usercontainer, .activeusers{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 50%;
+}
 .user{
     width: 95%;
-    height:10%;
+    height:20%;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(255, 255, 255, 0.48);
@@ -479,7 +498,7 @@ li {
     
 }
 
-.user #username{
+.user #username, .activeusers span{
     width: 65%;
     text-align: left;
     font-size: 18px;
@@ -487,12 +506,13 @@ li {
     margin-top: 3%;
     margin-left: 5%;
     color: #300a46;
+    overflow: hidden;
 }
-.adduser{
-    width: 30%;
-    height: auto;
-    padding: 1%;
-    margin: 3% 0;
+.addtogrp{
+    width: 20%;
+    height: 80%;
+    padding: 2%;
+    margin: 1% 0;
     margin-right: 3%;
     border-radius: 5px;
     border: none;
@@ -503,9 +523,11 @@ li {
     font-weight: bolder;
 } 
 
-.adduser:hover, .adduser:active{
-    background-color: #F25922;
-    color: #060542;
+.addtogrp:hover, .addtogrp:active, .closebtn:hover, .closebtn:active{
+        background-color: #922065;
+        color: #FEBE10;
+        border: 2px solid #F25922;       
+    
 }
 
 .groupitem {
@@ -525,14 +547,15 @@ li {
 }
 
 .groupitem img{
-    width:13%;
+    width:10%;
     height:80%;
     margin: 2%;
     border: 2px solid #300a46;
     border-radius: 50%;
+    padding: 1%;
 }
 .groupitem .groupname{
-    width: 80%;
+    width: 90%;
     height: 100%;
     font-size: 20px;
     font-weight: bolder;
@@ -542,9 +565,10 @@ li {
     text-align: left;
     border: none;
     border-radius: 5px;
-    background-color: inherit;
+    background:none;
     cursor: pointer;
 }
+
 
 .groupitem .groupname:hover{
     background-color: rgba(0, 0, 0, 0.3);
@@ -561,7 +585,7 @@ li {
 
 .headerbar{
     width: inherit;
-    height: 13%;
+    height: 10%;
     margin-bottom: 1%;
     border-radius: 5px;
     backdrop-filter: blur(16px) saturate(180%);
@@ -571,15 +595,17 @@ li {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
 }
 
 .headerbar img{
-    width:8%;
-    height:85%;
+    width:6%;
+    height:90%;
     margin: 1%;
     border: 2px solid #300a46;
     border-radius: 50%;
     padding: 1%;
+    
 }
 
 .headerbar .groupname{
@@ -589,7 +615,35 @@ li {
     overflow: hidden;
     margin-left: 3%;
 }
-
+.headerbar .groupuser{
+    font-weight: bolder;
+    overflow: hidden;
+    margin-left: 3%;
+}
+.header-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 65%;
+}
+#adduser{
+    width: 10%;
+    height: 75%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 4%;
+    top: 10%;
+}
+.fa-user-plus{
+    font-size: 30px;
+    background: none;
+    color: #300a46;
+    border: none;
+    border-radius: 10px;
+    padding: 2%;
+}
 .chatwindow{
     width: inherit;
     height: 85vh;

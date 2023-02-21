@@ -1,27 +1,34 @@
 const chatwindow = document.querySelector('.chatwindow');
 const createcard = document.querySelector('.creategroup');
-const header = document.querySelector('.headerbar')
+const usercard = document.querySelector('.userslist');
+const header = document.querySelector('.headerbar');
+const usercontainer = document.querySelector('.usercontainer');
+const activeusercontainer = document.querySelector('.activeusers');
+
 var user = localStorage.getItem('currentuser');
 var token = localStorage.getItem('token');
-// setInterval(() =>{
-//     chatwindow.innerHTML='';
-//         getmessages() }, 1000)
+
 
 window.addEventListener('DOMContentLoaded',()=>{
 getgroups();    
 })
 
 function showgroup(groupname, groupID){
-    
+    setInterval(() =>{
+        getmessages() }, 1000)
     localStorage.setItem('Activegrp', groupID)
+    getmessages();
+    const groupusers = localStorage.getItem('Activegrpuser')    
     header.innerHTML='';
     chatwindow.innerHTML='';
     header.innerHTML=`
     <img src="./Group icon.png" alt="Groupicon">
+    <div class='header-center'>
     <span class='groupname'>${groupname}</span>
+    </div>
+    <button alt='Adduser' id='adduser' onclick='adduser()'><i class='fas fa-user-plus'></i></button>
     `
-    getmessages();
-
+    
 }
 
 async function sendmessage() {
@@ -88,6 +95,7 @@ async function getmessages(){
             chatwindow.appendChild(messagecontainer);
             lastmessageID = message.id;
             }
+            
         })
         lastmsgs = allmessages.slice(-10)
         localStorage.setItem(`${groupid}lastmsgid`, lastmessageID);
@@ -99,8 +107,11 @@ async function getmessages(){
     }
 }
 
-function showcard(){
-    createcard.style='display: flex;'
+function showcard(card){
+    card.style='display: flex;'
+}
+function closecard(card){
+    card.style='display: none;'
 }
 
 async function creategroup(){
@@ -150,4 +161,61 @@ async function getgroups(){
     }catch(err) {
         console.log(err);
     }
+}
+
+async function adduser(){
+    try{
+        showcard(usercard);
+        const groupid = localStorage.getItem('Activegrp')
+        console.log(typeof groupid);
+        const Groupusersresponse = await axios.get(`http://localhost:4000/group/getgroupusers?groupid=${groupid}`);
+        console.log(Groupusersresponse.data);
+        const activeusers = Groupusersresponse.data.groupusers;
+        const activeusersid = [];
+        activeusercontainer.innerHTML='';
+
+        activeusers.forEach(user=>{
+            activeusersid.push(user.id);
+            const groupuseritem = document.createElement('div');
+            groupuseritem.classList.add('user');
+            groupuseritem.innerHTML=`
+            <span>${user.name}</span> 
+            `;
+            activeusercontainer.appendChild(groupuseritem);
+        })
+        console.log(activeusersid);
+        const addusers = Groupusersresponse.data.allusers;        
+        usercontainer.innerHTML=''
+        addusers.forEach(user=>{
+            if(!(activeusersid.includes(user.id))){
+                const useritem = document.createElement('div');
+                useritem.classList.add('user');
+                useritem.innerHTML=`
+                    <label id="username">${user.name}</label>
+                    <input type="hidden"id='userid' value=${user.id}>
+                    <button class="addtogrp" onclick='addtogroup(${user.id})'>Add user</button>
+                `
+                usercontainer.appendChild(useritem);
+            }    
+        })
+    
+        // localStorage.setItem(`${groupid}Groupusers`, groupusers);
+    }catch(err){
+        console.log(err)
+    }
+}
+async function addtogroup(id){
+    try{
+    const groupId = localStorage.getItem('Activegrp');
+    const addtogrpresponse = await axios.post('http://localhost:4000/group/adduser', {groupid: groupId, userId: id})
+    console.log(addtogrpresponse.data);
+    const message = addtogrpresponse.data.message;
+    const notification = addtogrpresponse.data.notification;
+    notifyUser(message);
+    sendnotification(notification, groupId);   
+    window.location.reload()    
+
+}catch(err){
+    console.log(err);
+}
 }

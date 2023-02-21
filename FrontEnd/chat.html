@@ -7,6 +7,7 @@
     <title>Login/Sign-Up</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="chat-script.js" defer></script> 
     </head>
 <body>
@@ -17,7 +18,7 @@
     <section class="overallpage">
     <section class="chatlist">
         <h2>Chat list</h2>
-        <button class="createbtn" onclick="showcard()">+ Create GROUP</button>
+        <button class="createbtn" onclick="showcard(createcard)">+ Create GROUP</button>
         
         <section class="chats">
             <p> There is no chat to display</p>
@@ -41,6 +42,7 @@
 </section>
 
 <section class ='creategroup'>
+    <button class="closebtn" onclick="closecard(createcard)">x</button>
         <img src="./Group icon.png" alt="Groupicon">
         <label>Enter Group name</label>
         <input type="text" id ='groupname' name="groupname" required/>
@@ -48,14 +50,21 @@
     
     
 </section>
-
+    
  <div class="userslist">
-        <span> Select the users</span>
+    <button class="closebtn" onclick="closecard(usercard)">x</button>
+    <span>Users in the group</span>
+    <div class="activeusers">
+
+    </div>
+    <span> Select the users to Add</span>
+    <div class="usercontainer">    
         <div class="user">
          <label id="username">Selva</label>
          <input type="hidden"id='1'>
-         <button class="adduser">Add user</button>   
+         <button class="addtogrp">Add user</button>   
         </div>
+    </div>    
     </div>
 
 
