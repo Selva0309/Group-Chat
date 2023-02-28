@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Sign-Up</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="chat-script.js" defer></script> 
     </head>
@@ -18,7 +18,7 @@
     <section class="overallpage">
     <section class="chatlist">
         <h2>Chat list</h2>
-        <button class="createbtn" onclick="showcard(createcard)">+ Create GROUP</button>
+        <button class="createbtn" onclick="shownewgroup()">+ Create GROUP</button>
         
         <section class="chats">
             <p> There is no chat to display</p>
@@ -43,9 +43,13 @@
 
 <section class ='creategroup'>
     <button class="closebtn" onclick="closecard(createcard)">x</button>
-        <img src="./Group icon.png" alt="Groupicon">
+        <img src="../Group icon.png" alt="Groupicon">
         <label>Enter Group name</label>
         <input type="text" id ='groupname' name="groupname" required/>
+        <span> Select the users to Add</span>
+        <div class="usercontainer">    
+        
+        </div> 
         <button class="create" onclick="creategroup()">Create</button>
     
     
@@ -53,18 +57,14 @@
     
  <div class="userslist">
     <button class="closebtn" onclick="closecard(usercard)">x</button>
+    
+    <label id="groupName">Enter Group name</label>
     <span>Users in the group</span>
     <div class="activeusers">
 
     </div>
-    <span> Select the users to Add</span>
-    <div class="usercontainer">    
-        <div class="user">
-         <label id="username">Selva</label>
-         <input type="hidden"id='1'>
-         <button class="addtogrp">Add user</button>   
-        </div>
-    </div>    
+    
+       
     </div>
 
 

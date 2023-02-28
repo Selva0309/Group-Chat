@@ -9,24 +9,25 @@ var user = localStorage.getItem('currentuser');
 var token = localStorage.getItem('token');
 
 
+
 window.addEventListener('DOMContentLoaded',()=>{
 getgroups();    
 })
 
 function showgroup(groupname, groupID){
-    setInterval(() =>{
-        getmessages() }, 1000)
+    // setInterval(() =>{
+    //     getmessages() }, 1000)
+    // console.log(groupname,groupID);
     localStorage.setItem('Activegrp', groupID)
+    localStorage.setItem('Activegrpname', groupname);
     getmessages();
-    const groupusers = localStorage.getItem('Activegrpuser')    
     header.innerHTML='';
     chatwindow.innerHTML='';
     header.innerHTML=`
-    <img src="./Group icon.png" alt="Groupicon">
+    <img src="../Group icon.png" alt="Groupicon">
     <div class='header-center'>
-    <span class='groupname'>${groupname}</span>
-    </div>
-    <button alt='Adduser' id='adduser' onclick='adduser()'><i class='fas fa-user-plus'></i></button>
+    <button alt='Adduser' id='headerbtn' onclick='showgrpdetails()'>${groupname}</button>
+    </div>    
     `
     
 }
@@ -36,7 +37,7 @@ async function sendmessage() {
     const message = document.getElementById('messagecontent').value;
     const messageresponse = await axios.post('http://localhost:4000/message/send', {message: message, type:'message', groupid: groupid}, {headers: {"Authorization": token}})
     console.log(messageresponse);
-    notifyUser(messageresponse.data.message);
+    // notifyUser(messageresponse.data.message);
     // window.location.reload();
     getmessages();
 }
@@ -116,27 +117,26 @@ function closecard(card){
 
 async function creategroup(){
     try{
-      
+     const selectedusers = [];
+     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+     checkboxes.forEach(box=>{
+        selectedusers.push(box.value)
+     })
+     console.log(selectedusers); 
      const groupname = document.getElementById('groupname').value;
-     const addgroup = await axios.post('http://localhost:4000/group/create', {name: groupname}, {headers: {"Authorization": token}})
+     const addgroup = await axios.post('http://localhost:4000/group/create', {name: groupname, users:selectedusers}, {headers: {"Authorization": token}})
      console.log(addgroup.data);
-     notifyUser(addgroup.data.message)
-     let message = 'created the group';
-     const id = addgroup.data.id; 
-     sendnotification(message, id);   
-     createcard.style = 'display:none;'
-     window.location.reload()   
+    // notifyUser(addgroup.data.message);
+    createcard.style = 'display: none';
+    getgroups();
+    showgroup(addgroup.data.name, addgroup.data.id); 
+    //  window.location.reload();   
 }catch(err){
     console.log(err);
 }
 }
 
-async function sendnotification(msg, id) {
-    const messageresponse = await axios.post('http://localhost:4000/message/send', {message: msg, groupid: id, type: 'notification' }, {headers: {"Authorization": token}})
-    notifyUser(messageresponse.data.message);
-    window.location.reload();
 
-}
 
 async function getgroups(){
     try{
@@ -150,7 +150,7 @@ async function getgroups(){
                 const groupItem = document.createElement('div');
                 groupItem.classList.add('groupitem');
                 groupItem.innerHTML= `
-                <img src="./Group icon.png" alt="Groupicon">
+                <img src="../Group icon.png" alt="Groupicon">
                 <button class='groupname' id='group-btn' onclick="showgroup('${group.groupname}',${group.id})">${group.groupname}</button>
                 `
                 chats.appendChild(groupItem);
@@ -163,47 +163,68 @@ async function getgroups(){
     }
 }
 
-async function adduser(){
+async function showgrpdetails(){
     try{
         showcard(usercard);
         const groupid = localStorage.getItem('Activegrp')
-        console.log(typeof groupid);
-        const Groupusersresponse = await axios.get(`http://localhost:4000/group/getgroupusers?groupid=${groupid}`);
+        const groupname = localStorage.getItem('Activegrpname');
+        const grouplabel = document.getElementById('groupName');
+        // console.log(typeof groupid);
+        grouplabel.innerHTML=`${groupname}`
+        const Groupusersresponse = await axios.get(`http://localhost:4000/group/getgroupusers?groupid=${groupid}`, {headers: {"Authorization": token}});
         console.log(Groupusersresponse.data);
         const activeusers = Groupusersresponse.data.groupusers;
-        const activeusersid = [];
+        const currentuserAdmin = Groupusersresponse.data.admin;
         activeusercontainer.innerHTML='';
-
-        activeusers.forEach(user=>{
-            activeusersid.push(user.id);
+        activeusers.forEach(groupuser=>{
             const groupuseritem = document.createElement('div');
             groupuseritem.classList.add('user');
-            groupuseritem.innerHTML=`
-            <span>${user.name}</span> 
-            `;
-            activeusercontainer.appendChild(groupuseritem);
-        })
-        console.log(activeusersid);
-        const addusers = Groupusersresponse.data.allusers;        
-        usercontainer.innerHTML=''
-        addusers.forEach(user=>{
-            if(!(activeusersid.includes(user.id))){
-                const useritem = document.createElement('div');
-                useritem.classList.add('user');
-                useritem.innerHTML=`
-                    <label id="username">${user.name}</label>
-                    <input type="hidden"id='userid' value=${user.id}>
-                    <button class="addtogrp" onclick='addtogroup(${user.id})'>Add user</button>
-                `
-                usercontainer.appendChild(useritem);
-            }    
-        })
+            if(groupuser.id==user && currentuserAdmin){
+                    groupuseritem.innerHTML=`
+                    <span id='userName'>(You)${groupuser.name}</span>
+                    <span id=admin>Admin</span> 
+                    `;
+            }else if(groupuser.id==user && !currentuserAdmin){
+                    groupuseritem.innerHTML=`<span id='userName'>(You)${groupuser.name}</span>`;
+            }else if(groupuser.id!=user && currentuserAdmin && groupuser.usergroup.isGroupAdmin){
+                groupuseritem.innerHTML=`
+                            <span id='userName'>${groupuser.name}</span>
+                            <span id=admin>Admin</span>
+                            <div id="nav">
+                                <button id="adminbtn" onclick='changeadminaccess(${groupuser.id})'>Remove Admin</button>
+                                <button id='userbtn' onclick='removeuser(${groupuser.id})'>Remove user</button>                                     
+                            </div> 
+                            `;
+                
+            }else if(groupuser.id!=user && currentuserAdmin && !groupuser.usergroup.isGroupAdmin){
+                groupuseritem.innerHTML=`
+                <span id='userName'>${groupuser.name}</span>
+                <div id="nav"> 
+                <button id="adminbtn" onclick='changeadminaccess(${groupuser.id})'>Make as Admin</button>
+                <button id='userbtn' onclick='removeuser(${groupuser.id})'>Remove user</button>
+                </div> 
+                `;
+                                
+
+            }else if(groupuser.id!=user && !currentuserAdmin && groupuser.usergroup.isGroupAdmin){
+                groupuseritem.innerHTML=`
+                <span id='userName'>${groupuser.name}</span>
+                            <span id=admin>Admin</span> 
+                            `;
+            }else if(groupuser.id!=user && !currentuserAdmin && !groupuser.usergroup.isGroupAdmin){
+                groupuseritem.innerHTML=`<span id='userName'>${groupuser.name}</span>`;                              
+
+            }
+                activeusercontainer.appendChild(groupuseritem);    
+            })
+            
+        }catch(error){
+            console.log(error)
+        }
+        }
+               
+        
     
-        // localStorage.setItem(`${groupid}Groupusers`, groupusers);
-    }catch(err){
-        console.log(err)
-    }
-}
 async function addtogroup(id){
     try{
     const groupId = localStorage.getItem('Activegrp');
@@ -211,11 +232,60 @@ async function addtogroup(id){
     console.log(addtogrpresponse.data);
     const message = addtogrpresponse.data.message;
     const notification = addtogrpresponse.data.notification;
-    notifyUser(message);
-    sendnotification(notification, groupId);   
+    // notifyUser(message);
+    // sendnotification(notification, groupId);   
     window.location.reload()    
 
 }catch(err){
     console.log(err);
 }
+}
+
+async function shownewgroup(){
+    try {
+     createcard.style='display: flex;';
+     const currentuser = localStorage.getItem('currentuser')
+     const usersresponse = await axios.get('http://localhost:4000/user/getusers');
+     const users = usersresponse.data.message;
+     users.forEach(user=>{
+            if(!(currentuser.includes(user.id))){
+                const useritem = document.createElement('div');
+                useritem.classList.add('user');
+                useritem.innerHTML=`
+                    <label id="username">${user.name}</label>
+                    <input type="checkbox" name='userid' value=${user.id}>
+                `
+                usercontainer.appendChild(useritem);
+            }    
+        })
+    
+
+        
+    } catch (error) {
+        console.log(error);
+         }
+
+}
+
+async function removeuser(id){
+    try {
+        const groupid = localStorage.getItem('Activegrp');
+        const deleteuserreponse = await axios.put(`http://localhost:4000/group/removeuser`,{groupid: groupid, userid: id}, {headers: {"Authorization": token}});
+        console.log(deleteuserreponse.data.message);
+        window.location.reload();
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function changeadminaccess(id){
+    try {
+        const groupid = localStorage.getItem('Activegrp');
+        const edituserresponse  = await axios.put('http://localhost:4000/group/changeaccess', {userid: id, groupid: groupid}, {headers: {"Authorization": token}});
+        console.log(edituserresponse.data);
+        window.location.reload();
+        
+    } catch (error) {
+        console.log(error);        
+    }
 }

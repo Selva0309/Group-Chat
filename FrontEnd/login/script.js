@@ -76,7 +76,7 @@ async function login(){
             notifyUser(message);
             localStorage.setItem('token', token);
             localStorage.setItem('currentuser', id);
-            window.location.assign('/chat.html');           
+            window.location.assign('./Chats/chat.html');           
 
         } 
     } catch (err) {
@@ -96,7 +96,7 @@ document.querySelector('.forgot-btn').addEventListener('click', forgotpasswordpa
 function sendEmail(){
     const emailID = document.getElementById('forgotemail').value;
     console.log(emailID)
-    axios.post('http://52.196.64.49/password/forgotpassword', {emailID})
+    axios.post('http://localhost:4000/password/forgotpassword', {emailID})
     .then(response=>{
         console.log(response);
         if(response.data.success){
