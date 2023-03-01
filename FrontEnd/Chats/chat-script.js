@@ -175,8 +175,14 @@ async function showgrpdetails(){
         console.log(Groupusersresponse.data);
         const activeusers = Groupusersresponse.data.groupusers;
         const currentuserAdmin = Groupusersresponse.data.admin;
+        const addusercontainer = document.querySelector('.addusercontainer');
+        const groupusersid = []; 
         activeusercontainer.innerHTML='';
+        if(currentuserAdmin){
+            addusercontainer.innerHTML=`<button id='addusers' onclick='showselectusers()'>Add user +</button>`
+        }
         activeusers.forEach(groupuser=>{
+            groupusersid.push(groupuser.id);
             const groupuseritem = document.createElement('div');
             groupuseritem.classList.add('user');
             if(groupuser.id==user && currentuserAdmin){
@@ -217,24 +223,46 @@ async function showgrpdetails(){
             }
                 activeusercontainer.appendChild(groupuseritem);    
             })
+            const allusersresponse = await axios.get('http://localhost:4000/user/getusers');
+            const allusers = allusersresponse.data.message;
+            const selectusers = document.querySelector('.selectuserscontainer');
+            selectusers.innerHTML='';
+            allusers.forEach(user=>{
+                   if(!(groupusersid.includes(user.id))){
+                       const useritem = document.createElement('div');
+                       useritem.classList.add('user');
+                       useritem.innerHTML=`
+                           <label id="username">${user.name}</label>
+                           <input type="checkbox" name='selectuserid' value=${user.id}>
+                       `
+                       selectusers.appendChild(useritem);
+                   }    
+               })
             
+
         }catch(error){
             console.log(error)
         }
         }
-               
-        
+function showselectusers(){
+    const overallcontainer = document.querySelector('.selectusers-overallcontainer');
+    overallcontainer.style = 'display: flex';
+}                        
     
-async function addtogroup(id){
+async function addtogroup(){
     try{
-    const groupId = localStorage.getItem('Activegrp');
-    const addtogrpresponse = await axios.post('http://localhost:4000/group/adduser', {groupid: groupId, userId: id})
-    console.log(addtogrpresponse.data);
-    const message = addtogrpresponse.data.message;
-    const notification = addtogrpresponse.data.notification;
-    // notifyUser(message);
-    // sendnotification(notification, groupId);   
-    window.location.reload()    
+        const selectedusers = [];
+        var usercheckboxes = document.querySelectorAll('input[type=checkbox]:checked');
+        usercheckboxes.forEach(box=>{
+           selectedusers.push(box.value)
+        })
+        console.log(selectedusers); 
+        const groupid = localStorage.getItem('Activegrp');
+        const addtogroup = await axios.post('http://localhost:4000/group/adduser', {groupid: groupid, users:selectedusers}, {headers: {"Authorization": token}})
+        console.log(addtogroup.data);
+       // notifyUser(addgroup.data.message);
+       window.location.reload();
+          
 
 }catch(err){
     console.log(err);
@@ -247,6 +275,7 @@ async function shownewgroup(){
      const currentuser = localStorage.getItem('currentuser')
      const usersresponse = await axios.get('http://localhost:4000/user/getusers');
      const users = usersresponse.data.message;
+     usercontainer.innerHTML='';
      users.forEach(user=>{
             if(!(currentuser.includes(user.id))){
                 const useritem = document.createElement('div');

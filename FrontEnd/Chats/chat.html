@@ -42,7 +42,7 @@
 </section>
 
 <section class ='creategroup'>
-    <button class="closebtn" onclick="closecard(createcard)">x</button>
+    <button class="closebtn" onclick="closecard(createcard)">&#8249;</button>
         <img src="../Group icon.png" alt="Groupicon">
         <label>Enter Group name</label>
         <input type="text" id ='groupname' name="groupname" required/>
@@ -56,15 +56,23 @@
 </section>
     
  <div class="userslist">
-    <button class="closebtn" onclick="closecard(usercard)">x</button>
+    <button class="closebtn" onclick="closecard(usercard)">&#8249;</button>
     
     <label id="groupName">Enter Group name</label>
+    <div class="addusercontainer">
+        
+    </div>
     <span>Users in the group</span>
     <div class="activeusers">
 
     </div>
-    
-       
+    <section class="selectusers-overallcontainer">
+        <span>Select the users to add</span>
+    <div class="selectuserscontainer">
+
+    </div>
+    <button id="addtogrp" onclick="addtogroup()">Add</button>
+    </section>   
     </div>
 
 

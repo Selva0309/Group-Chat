@@ -6,16 +6,15 @@
     font-family: Muli, 'Calibri';
        
 }
-html::-webkit-scrollbar{
+.chatwindow::-webkit-scrollbar{
     width: 8px;               /* width of the entire scrollbar */
   }
-  
-html::-webkit-scrollbar-track{
+ .chatwindow::-webkit-scrollbar-track{
     background: inherit;        /* color of the tracking area */
     border-radius: 5px;
   }
   
-html::-webkit-scrollbar-thumb {
+.chatwindow::-webkit-scrollbar-thumb {
     background-color: #F25922;    /* color of the scroll thumb */
     border-radius: 20px;       /* roundness of the scroll thumb */
     }
@@ -359,14 +358,15 @@ li {
 .chatlist h2{
     width: 100%;
     height: 6%;
-    background-color: #a83d16;
+    background-color: #ae60d3;
     text-transform: uppercase;
-    color: #fff;
+    color: #460a2e;
     text-align: center;
     align-content: center;
     position: absolute;
     border-radius: 5px 5px 0 0;
     letter-spacing: 1px;
+    font-weight: bolder;
     top:0%;
     left: 0%;
     margin: 0;
@@ -510,16 +510,16 @@ li {
 }
 
 .closebtn{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bolder;
     color: #fff;
     background-color: inherit;
-    border: none;
-    border-radius: 50%;
+    border: 1px solid #F25922;
+    border-radius: 5px;
     position: absolute;
     width:10%;
-    right: 1%;
-    top: -2%;
+    left: 2%;
+    top: 2%;
 }
 
 .userslist span, .creategroup span{
@@ -554,34 +554,42 @@ li {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 50%;
+    height: 40%;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    margin: 1%;
     overflow-y: auto;
 }
 .user{
     width: 95%;
-    height:15%;
+    height:16%;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.48);
-    border-radius: 12px;
+    background-color: #ae60d3;
+    border-radius: 5px;
     border: 1px solid rgba(209, 213, 219, 0.3);
     margin: 1% auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     position: relative;
+    flex-wrap: nowrap;
+    
     
 }
 
 .user #username, .activeusers span{
-    width: 65%;
+    width: 50%;
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bolder;
-    margin-top: 3%;
-    margin-left: 5%;
+    margin-top: 1%;
+    margin-left: 1%;
     color: #300a46;
     overflow: hidden;
+    
 }
 .addtogrp{
     width: 10%;
@@ -611,7 +619,7 @@ li {
     margin: 2% auto;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.48);
+    background-color: #ae60d3;
     border-radius: 12px;
     border: 1px solid rgba(209, 213, 219, 0.3);
     display: flex;
@@ -645,8 +653,8 @@ li {
 }
 
 
-.groupitem .groupname:hover{
-    background-color: rgba(0, 0, 0, 0.3);
+.groupitem .groupname:hover, .groupitem .groupname:active{
+    background-color: rgba(0, 0, 0, 0.452);
 }
 .chatcontainer{
     width:100%;
@@ -672,8 +680,8 @@ li {
 }
 
 .headerbar img{
-    width:6%;
-    height:90%;
+    width:5%;
+    height:80%;
     margin: 1%;
     border: 2px solid #fff;
     border-radius: 50%;
@@ -739,7 +747,7 @@ li {
     text-align: center;
     font-size: 14px;
     font-weight: bolder;
-    background-color: slategrey;
+    background-color: #865DFF;
     border-radius: 10px;
     font-style: italic;    
 }    
@@ -758,7 +766,7 @@ li {
     height: 60%;
     padding: 1%;
     background-color: inherit;
-    border: 2px solid #F25922;
+    border: 2px solid #dcace8;
     border-radius: 5px;
     overflow: hidden;
     font-size: 15px;
@@ -767,7 +775,8 @@ li {
 
 .send-btn{
     width: 12%;
-    background-color: #F25922;
+    background-color: #8013bd;
+    color: #dcace8;
     font-family: inherit;
     font-size: 14px;
     padding: 1%;
@@ -868,4 +877,56 @@ li {
     cursor: pointer;
 }
 
+.selectusers-overallcontainer{
+    display: none;
+    height: 45%;
+    margin: 1%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    overflow-y: auto;
+}
 
+.selectuserscontainer{
+    padding: 2%;
+    width: 95%;
+
+}
+.selectuserscontainer .user{
+    width: 95%;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 1%;
+}
+
+.selectuserscontainer #username{
+    padding: 0.5%;
+    margin: 0.5%;
+}
+.addusercontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#addusers, #addtogrp{
+    width: 30%;
+    text-align: center;
+    margin: 2% auto;
+    background-color: rgb(26, 99, 77);
+    color: #FEBE10;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 1%;
+    transition: 0.5s;
+}
+
+#addusers:hover, #addtogrp:hover{
+    background-color: #F25922;
+    color: #FEBE10;
+}

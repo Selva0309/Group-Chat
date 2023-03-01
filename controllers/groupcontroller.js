@@ -75,18 +75,26 @@ exports.getgroupusers = async(req,res,next)=>{
 
 exports.addusertogroup = async (req,res,next)=>{
     try{
-        const userid = req.body.userId;
+        const usersid = req.body.users;
         const groupid = req.body.groupid;
-        const user = await User.findOne({
-            where: {id: userid}
-        });
-        const group = await Group.findOne(
-            {
-                where: {id: groupid}
-            }
-        );
-        group.addUser(user);
-        res.status(200).json({success: true, notification:`added ${user.name} to the group`, message: 'User added successfully'})    
+        let notification=[];
+        usersid.forEach(async id=>{
+            const user = await User.findOne({
+                where: {id: id},
+                attributes: ['id', 'name']
+            });
+            const group = await Group.findOne(
+                {
+                    where: {id: groupid}
+                }
+            );
+            group.addUser(user);
+            notification.push(`added ${user.name} to the group`);
+            sendnotification(notification, groupid, req.user.id)
+
+        })
+        
+        res.status(200).json({success: true, message: 'User added successfully'})    
     }catch(error){
         console.log(error)
     }

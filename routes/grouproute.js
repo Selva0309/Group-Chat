@@ -12,7 +12,7 @@ router.post('/create', UserAuth.authenticate, groupcontroller.creategroup);
 router.get('/getgroups', UserAuth.authenticate, groupcontroller.getgroups);
 router.get('/getgroupusers', UserAuth.authenticate, groupcontroller.getgroupusers)
 router.put('/removeuser', UserAuth.authenticate, groupcontroller.removeuser)
-router.post('/adduser', groupcontroller.addusertogroup)
+router.post('/adduser', UserAuth.authenticate, groupcontroller.addusertogroup)
 router.put('/changeaccess', UserAuth.authenticate, groupcontroller.changeaccess)
 
 module.exports = router;
