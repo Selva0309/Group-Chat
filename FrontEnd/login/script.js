@@ -70,13 +70,13 @@ async function login(){
     const success = loginresponse.data.success;
     const token = loginresponse.data.token;
     const id = loginresponse.data.id;
-        console.log(token);
+        // console.log(token);
         
          if(success==true){
             notifyUser(message);
             localStorage.setItem('token', token);
             localStorage.setItem('currentuser', id);
-            window.location.assign('./Chats/chat.html');           
+            window.location.assign(`./Chats/chat.html`);           
 
         } 
     } catch (err) {

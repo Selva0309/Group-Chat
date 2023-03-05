@@ -8,6 +8,15 @@ const activeusercontainer = document.querySelector('.activeusers');
 var user = localStorage.getItem('currentuser');
 var token = localStorage.getItem('token');
 
+const socket = window.io('http://localhost:4000', {
+    query: {
+        user : user
+    },forceNew: true
+});
+
+socket.on('refreshgroup', ()=>{
+    getgroups();
+})
 
 
 window.addEventListener('DOMContentLoaded',()=>{
@@ -123,9 +132,13 @@ async function creategroup(){
         selectedusers.push(box.value)
      })
      console.log(selectedusers); 
+     
      const groupname = document.getElementById('groupname').value;
      const addgroup = await axios.post('http://localhost:4000/group/create', {name: groupname, users:selectedusers}, {headers: {"Authorization": token}})
      console.log(addgroup.data);
+     const groupusers = [...selectedusers, ...user]
+     socket.emit('createroom', groupusers, addgroup.id);
+     
     // notifyUser(addgroup.data.message);
     createcard.style = 'display: none';
     getgroups();
@@ -261,7 +274,7 @@ async function addtogroup(){
         const addtogroup = await axios.post('http://localhost:4000/group/adduser', {groupid: groupid, users:selectedusers}, {headers: {"Authorization": token}})
         console.log(addtogroup.data);
        // notifyUser(addgroup.data.message);
-       window.location.reload();
+    //    window.location.reload();
           
 
 }catch(err){
@@ -301,7 +314,7 @@ async function removeuser(id){
         const groupid = localStorage.getItem('Activegrp');
         const deleteuserreponse = await axios.put(`http://localhost:4000/group/removeuser`,{groupid: groupid, userid: id}, {headers: {"Authorization": token}});
         console.log(deleteuserreponse.data.message);
-        window.location.reload();
+        // window.location.reload();
     } catch (error) {
         console.log(error)
     }
@@ -312,7 +325,7 @@ async function changeadminaccess(id){
         const groupid = localStorage.getItem('Activegrp');
         const edituserresponse  = await axios.put('http://localhost:4000/group/changeaccess', {userid: id, groupid: groupid}, {headers: {"Authorization": token}});
         console.log(edituserresponse.data);
-        window.location.reload();
+        // window.location.reload();
         
     } catch (error) {
         console.log(error);        

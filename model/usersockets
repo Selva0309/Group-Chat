@@ -1,0 +1,18 @@
+const { Sequelize, Op } = require("sequelize");
+const sequelize = require('../utils/database');
+
+const Usersockets = sequelize.define('usersockets', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  
+  socketID: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+});
+
+module.exports = Usersockets;

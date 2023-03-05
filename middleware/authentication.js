@@ -6,7 +6,7 @@ dotenv.config();
 exports.authenticate = (req,res,next)=>{
     try{
         const token = req.header('Authorization');
-        console.log(token);
+        // console.log(token);
         const user = jwt.verify(token, process.env.SIGN_KEY);
         let userId= user.userId;
         console.log(userId);
