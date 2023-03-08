@@ -358,9 +358,9 @@ li {
 .chatlist h2{
     width: 100%;
     height: 6%;
-    background-color: #ae60d3;
+    background: linear-gradient(315deg,#360442,#060542);
     text-transform: uppercase;
-    color: #460a2e;
+    color: #fff;
     text-align: center;
     align-content: center;
     position: absolute;
@@ -387,7 +387,7 @@ li {
     padding: 5px 20px;
     border-radius: 50px;
     border: 0;
-    background-color: rgb(26, 99, 77);
+    background-color: #270722;
     box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -396,7 +396,7 @@ li {
     margin-top: 8%;
     margin-bottom: 1%;
     margin-left: 50%;
-    
+    border: 1px solid #dbcf96;
    }
    
    .createbtn:hover {
@@ -513,8 +513,8 @@ li {
     font-size: 18px;
     font-weight: bolder;
     color: #fff;
-    background-color: inherit;
-    border: 1px solid #F25922;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
     border-radius: 5px;
     position: absolute;
     width:10%;
@@ -533,7 +533,7 @@ li {
 #groupName{
     font-size: 24px;
     width: 100%;
-    background-color: rgb(26, 99, 77);
+    background-color: rgba(0, 0, 0, 0.5);
     font-weight: bolder;
     text-align: center;
     color: #FEBE10;
@@ -609,7 +609,7 @@ li {
 .addtogrp:hover, .addtogrp:active, .closebtn:hover, .closebtn:active{
         background-color: #922065;
         color: #FEBE10;
-        border: 2px solid #F25922;       
+               
     
 }
 
@@ -619,9 +619,9 @@ li {
     margin: 2% auto;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: #ae60d3;
+    background-color: inherit;
     border-radius: 12px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
+    border: none;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -630,19 +630,20 @@ li {
 }
 
 .groupitem img{
-    width:10%;
+    width:8%;
     height:80%;
     margin: 2%;
-    border: 2px solid #300a46;
+    border: 2px solid #dcace8;
     border-radius: 50%;
     padding: 1%;
 }
+
 .groupitem .groupname{
     width: 90%;
     height: 100%;
     font-size: 20px;
     font-weight: bolder;
-    color: #300a46;
+    color: #dcace8;
     margin-left: 3%;
     overflow: hidden;
     text-align: left;
@@ -652,10 +653,30 @@ li {
     cursor: pointer;
 }
 
+#new{
+    font-size: 25px;
+    color: #FEBE10;
+    font-weight: bold;
+    margin-left: 2%;
+    align-items: center;
+}
 
 .groupitem .groupname:hover, .groupitem .groupname:active{
-    background-color: rgba(0, 0, 0, 0.452);
+    background-color: #865DFF;
+    color: #460a2e;
+     
 }
+
+.groupitem.active, .groupitem.active img{
+    background-color: #735cdd;
+    color: #460a2e;
+       
+}
+
+.groupitem.active .groupname{
+    color: #460a2e;
+}
+
 .chatcontainer{
     width:100%;
     height: 89vh;
@@ -741,13 +762,13 @@ li {
 
 
 .notification{
-    width: 45%;
+    width: 35%;
     max-width: 75%;
-    margin: 2% auto;
+    margin: 1% auto;
     text-align: center;
     font-size: 14px;
     font-weight: bolder;
-    background-color: #865DFF;
+    background-color: #dbd096a1;
     border-radius: 10px;
     font-style: italic;    
 }    
@@ -797,7 +818,7 @@ li {
 
 .Otheruser{
     width: 70%;
-    background-color: #0f7a88f5;
+    background: linear-gradient(315deg,#360442,#060542);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -811,14 +832,15 @@ li {
 }
 
 .You{
-    width: 60%;
+    width: 50%;
     height: auto;
-    background-color: rgb(26, 99, 77);
+    
+    background: linear-gradient(73deg, rgba(2,0,36,1) 0%, rgba(124,0,255,1) 8%, rgba(0,134,255,1) 19%, rgba(2,0,36,1) 95%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 1%;
-    margin-left: 40%;
+    margin-left: 50%;
     margin-top: 1%;
     margin-bottom: 1%;
     text-align: left;
@@ -829,7 +851,7 @@ li {
 #name{
     font-size: 14px;
     font-weight: bolder;
-    color: #F25922;
+    color: #fff;
     width: 100%;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.4);
@@ -867,11 +889,11 @@ li {
 
 #adminbtn, #userbtn{
     width: auto;
-    background-color: rgb(26, 99, 77);
+    background-color: #300a46;
     color: #FEBE10;
     font-size: 10px;
     font-weight: bolder;
-    border: none;
+    border: 1px solid #FEBE10;
     border-radius: 5px;
     margin-right: 2%;
     cursor: pointer;
@@ -915,7 +937,7 @@ li {
     width: 30%;
     text-align: center;
     margin: 2% auto;
-    background-color: rgb(26, 99, 77);
+    background-color: #300a46;
     color: #FEBE10;
     border-radius: 5px;
     border: none;
@@ -923,10 +945,11 @@ li {
     font-weight: bolder;
     cursor: pointer;
     padding: 1%;
-    transition: 0.5s;
+    transition: 0.3s;
+    border: 1px solid #FEBE10;
 }
 
 #addusers:hover, #addtogrp:hover{
     background-color: #F25922;
-    color: #FEBE10;
+    color: #270722;
 }

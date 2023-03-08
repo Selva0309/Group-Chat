@@ -31,41 +31,8 @@ const express = require('express');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+const socketFunctions = require('./middleware/socketfunctions')(io);
 
-io.on("connection", async (socket) =>{
-  console.log('userconnected');
-  // console.log(socket.handshake.query);
-  const userid= socket.handshake.query.user;
-  const getuser = await User.findOne({where: {id: userid}})
-  const getsocket = await getuser.getUsersocket();
-  if (getsocket){
-      getsocket.update({socketID : socket.id})
-  } else {
-    const createsocket = await getuser.createUsersocket({socketID: socket.id});
-    console.log(createsocket.socketID);
-  }
-
-  //After User creates the group
-  socket.on('createroom', (groupusers, groupid)=>{
-    console.log(groupusers);
-    groupusers.forEach(async user => {
-      const usersocketid = await Usersockets.findOne({where: {userid: +user}});
-      // console.log(usersocketid.socketID);
-      const usersocket = io.sockets.sockets.get(`${usersocketid.socketID}`);
-      // console.log(usersocket)
-      // Join the user to the room
-        if (usersocket) {
-          usersocket.join(`room-${groupid}`);
-          
-          console.log(`User ${user} has joined the room`);
-          io.to(`room-${groupid}`).emit('refreshgroup')
-        } else {
-          console.error(`User ${user} not found`);
-        }
-      
-    });
-  })
-})
 
 
 

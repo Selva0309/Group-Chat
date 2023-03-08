@@ -124,7 +124,7 @@ exports.removeuser= async(req,res,next)=>{
             groupId: groupID,
             userId: userID
         }})
-        console.log(usergroup)
+        // console.log(usergroup)
         const result = await usergroup.destroy();
         let notification=[];
         notification.push(`removed ${groupuser.name} from the group`)

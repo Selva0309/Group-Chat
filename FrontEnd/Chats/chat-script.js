@@ -18,6 +18,29 @@ socket.on('refreshgroup', ()=>{
     getgroups();
 })
 
+socket.on('refreshmsg', (groupid)=>{
+    const activegrp = document.querySelector('.groupitem.active');
+    if(activegrp){
+    const activegroupid = activegrp.getAttribute('data-button-id');
+        if(activegroupid == groupid){
+        getmessages(groupid); 
+        }else {
+            const groups = document.querySelectorAll('.groupitem');
+            groups.forEach(group=>{
+            if (group.getAttribute('data-button-id') == groupid) {            
+                group.querySelector('span').innerHTML='*';
+              }
+        })
+        }
+    }else {
+        const groups = document.querySelectorAll('.groupitem');
+        groups.forEach(group=>{
+        if (group.getAttribute('data-button-id') == groupid) {            
+            group.querySelector('span').innerHTML='*';
+          }
+    })
+}
+})
 
 window.addEventListener('DOMContentLoaded',()=>{
 getgroups();    
@@ -27,9 +50,21 @@ function showgroup(groupname, groupID){
     // setInterval(() =>{
     //     getmessages() }, 1000)
     // console.log(groupname,groupID);
+
+    const groups = document.querySelectorAll('.groupitem');
+    const currentgroupitem = document.querySelectorAll('.groupitem.active');
+    groups.forEach(group=>{
+        if (group.getAttribute('data-button-id') == groupID) {
+            group.classList.add('active');
+            group.querySelector('span').innerHTML='';
+          } else {
+            group.classList.remove('active');
+          }
+    })
+    
     localStorage.setItem('Activegrp', groupID)
     localStorage.setItem('Activegrpname', groupname);
-    getmessages();
+    getmessages(groupID);
     header.innerHTML='';
     chatwindow.innerHTML='';
     header.innerHTML=`
@@ -46,9 +81,12 @@ async function sendmessage() {
     const message = document.getElementById('messagecontent').value;
     const messageresponse = await axios.post('http://localhost:4000/message/send', {message: message, type:'message', groupid: groupid}, {headers: {"Authorization": token}})
     console.log(messageresponse);
+    document.getElementById('messagecontent').value='';
+    document.getElementById('messagecontent').focus();
+    socket.emit('messagesent', groupid);
     // notifyUser(messageresponse.data.message);
     // window.location.reload();
-    getmessages();
+    
 }
 
 function notifyUser(message) {
@@ -66,10 +104,9 @@ function notifyUser(message) {
 }
 
 
-async function getmessages(){
+async function getmessages(groupid){
     try{
-        
-        const groupid = localStorage.getItem('Activegrp');
+               
         let lastmessageID = +localStorage.getItem(`${groupid}lastmsgid`) || 0;
         const messages = await axios.get(`http://localhost:4000/message/getmessage?messageid=${lastmessageID}&groupid=${groupid}`)
         console.log(messages.data.messages);
@@ -162,9 +199,10 @@ async function getgroups(){
             groups.forEach(group=>{
                 const groupItem = document.createElement('div');
                 groupItem.classList.add('groupitem');
+                groupItem.setAttribute("data-button-id", `${group.id}`)
                 groupItem.innerHTML= `
                 <img src="../Group icon.png" alt="Groupicon">
-                <button class='groupname' id='group-btn' onclick="showgroup('${group.groupname}',${group.id})">${group.groupname}</button>
+                <button class='groupname' id='group-btn' onclick="showgroup('${group.groupname}',${group.id})">${group.groupname}<span id='new'></span></button>
                 `
                 chats.appendChild(groupItem);
             })
@@ -275,6 +313,10 @@ async function addtogroup(){
         console.log(addtogroup.data);
        // notifyUser(addgroup.data.message);
     //    window.location.reload();
+        const overallcontainer = document.querySelector('.selectusers-overallcontainer');
+        overallcontainer.style = 'display: none';
+        closecard(usercard);
+        socket.emit('addusers', selectedusers, groupid);
           
 
 }catch(err){
@@ -315,6 +357,9 @@ async function removeuser(id){
         const deleteuserreponse = await axios.put(`http://localhost:4000/group/removeuser`,{groupid: groupid, userid: id}, {headers: {"Authorization": token}});
         console.log(deleteuserreponse.data.message);
         // window.location.reload();
+        closecard(usercard);
+        
+        socket.emit('removeuser',id, groupid)
     } catch (error) {
         console.log(error)
     }
@@ -326,6 +371,8 @@ async function changeadminaccess(id){
         const edituserresponse  = await axios.put('http://localhost:4000/group/changeaccess', {userid: id, groupid: groupid}, {headers: {"Authorization": token}});
         console.log(edituserresponse.data);
         // window.location.reload();
+        closecard(usercard);
+        socket.emit('adminchange', groupid);
         
     } catch (error) {
         console.log(error);        
