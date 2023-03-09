@@ -35,7 +35,7 @@ const socketFunctions = require('./middleware/socketfunctions')(io);
 
 
 
-
+//Static paths
 app.use(express.static(path.join(__dirname,'Frontend')));
 app.use(express.static(path.join(__dirname,'Frontend','login')));
 app.use(express.static(path.join(__dirname,'Frontend','Chats')));
