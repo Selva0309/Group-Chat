@@ -50,7 +50,9 @@ function showgroup(groupname, groupID){
     // setInterval(() =>{
     //     getmessages() }, 1000)
     // console.log(groupname,groupID);
-
+    const welcome = document.querySelector('.welcome');
+    welcome.style = 'display: none;'
+    document.querySelector('.chatcontainer').style = 'display: flex;'
     const groups = document.querySelectorAll('.groupitem');
     const currentgroupitem = document.querySelectorAll('.groupitem.active');
     groups.forEach(group=>{
@@ -89,6 +91,31 @@ async function sendmessage() {
     
 }
 
+async function sendfile(){
+    try {
+        const groupid = localStorage.getItem('Activegrp');
+        const file = document.getElementById('file').files[0];
+        
+        
+        
+        const filename = document.getElementById('file').value.split('\\').pop();
+        console.log(file, filename);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', filename);
+        formData.append('type', 'file');
+        formData.append('groupid', groupid);
+             
+        const fileupload = await axios.post('http://localhost:4000/message/fileupload',
+         formData,
+        {headers: {"Authorization": token, 'Content-Type': 'multipart/form-data'}})
+        console.log(fileupload.data.fileURL);
+        socket.emit('messagesent', groupid);
+        closefileupload();
+    } catch (error) {
+        console.log(error);
+    }
+}
 function notifyUser(message) {
     const container = document.querySelector('.notification-container');
         const notification = document.createElement('div');
@@ -130,7 +157,19 @@ async function getmessages(groupid){
                 `
                 chatwindow.appendChild(notification);
                 lastmessageID = message.id;
-            }else{
+            } else if(message.type == 'file'){
+                const notification = document.createElement('div');
+                const [filename, URL] = text.split('*'); 
+                notification.classList.add(classname);
+                notification.innerHTML=`
+                <div id='name'>${name}</div>
+                <div id='text'><i class='fa fa-file green-color'></i><a href="${URL}">${filename}</a></div>
+                <div id='time'>${time}</div>
+                `
+                chatwindow.appendChild(notification);
+                lastmessageID = message.id;
+            }
+            else{
             
             const messagecontainer = document.createElement('section');
             messagecontainer.classList.add(classname);
@@ -159,6 +198,16 @@ function showcard(card){
 }
 function closecard(card){
     card.style='display: none;'
+}
+function showfileupload(){
+    const multimedia = document.querySelector('.multimedia');
+    multimedia.style = 'display: flex;'
+    document.querySelector('.textmessage').style = 'display: none;'
+}
+function closefileupload(){
+    const multimedia = document.querySelector('.multimedia');
+    multimedia.style = 'display: none;'
+    document.querySelector('.textmessage').style = 'display: flex;'
 }
 
 async function creategroup(){
@@ -192,7 +241,7 @@ async function getgroups(){
     try{
         const groupsresponse = await axios.get('http://localhost:4000/group/getgroups',{headers: {"Authorization": token}})
         console.log(groupsresponse.data.group);
-        if(groupsresponse.data.group){
+        if(groupsresponse.data.group.length>0){
             const groups = groupsresponse.data.group;
             const chats = document.querySelector('.chats');
             chats.innerHTML='';

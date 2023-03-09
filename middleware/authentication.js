@@ -13,6 +13,7 @@ exports.authenticate = (req,res,next)=>{
         User.findByPk(userId)
         .then(user=>{
             req.user = user;
+            console.log('Authentication complete');
             next();
         }).catch(err => {
             throw new Error(err)

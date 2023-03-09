@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="chat-script.js" defer></script> 
     
@@ -26,7 +28,10 @@
             <p> There is no chat to display</p>
         </section>
     </section>    
-        
+    <section class="welcome">
+        <img src="../Welcome.jpg" alt="welcome">
+        <span>Welcome to Group Chat App</span>
+    </section>    
     
     <section class="chatcontainer">
         <div class="headerbar">
@@ -37,8 +42,20 @@
 
         </section>
         <section class="sendmessage">
+            <div class="textmessage">
             <input type="text" id="messagecontent">
+            
+            <button type="button" class="upload" onclick="showfileupload()"><i class='fas fa-file-upload'></i></button>
             <button type="button" class="send-btn" onclick="sendmessage()">Send</button>
+            </div>
+            <div class="multimedia">
+                <form>
+                   
+                <input type="file" name="file" id='file'/> 
+                <button type="button" class="send-btn" onclick="sendfile()">Send</button>
+                <a href=""></a>
+                </form>
+            </div>
         </section>
     </section>
 </section>
