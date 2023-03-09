@@ -8,7 +8,7 @@ const activeusercontainer = document.querySelector('.activeusers');
 var user = localStorage.getItem('currentuser');
 var token = localStorage.getItem('token');
 
-const socket = window.io('http://localhost:4000', {
+const socket = window.io('http://18.182.30.227', {
     query: {
         user : user
     },forceNew: true
@@ -81,7 +81,7 @@ function showgroup(groupname, groupID){
 async function sendmessage() {
     const groupid = localStorage.getItem('Activegrp');
     const message = document.getElementById('messagecontent').value;
-    const messageresponse = await axios.post('http://localhost:4000/message/send', {message: message, type:'message', groupid: groupid}, {headers: {"Authorization": token}})
+    const messageresponse = await axios.post('http://18.182.30.227/message/send', {message: message, type:'message', groupid: groupid}, {headers: {"Authorization": token}})
     console.log(messageresponse);
     document.getElementById('messagecontent').value='';
     document.getElementById('messagecontent').focus();
@@ -106,7 +106,7 @@ async function sendfile(){
         formData.append('type', 'file');
         formData.append('groupid', groupid);
              
-        const fileupload = await axios.post('http://localhost:4000/message/fileupload',
+        const fileupload = await axios.post('http://18.182.30.227/message/fileupload',
          formData,
         {headers: {"Authorization": token, 'Content-Type': 'multipart/form-data'}})
         console.log(fileupload.data.fileURL);
@@ -135,7 +135,7 @@ async function getmessages(groupid){
     try{
                
         let lastmessageID = +localStorage.getItem(`${groupid}lastmsgid`) || 0;
-        const messages = await axios.get(`http://localhost:4000/message/getmessage?messageid=${lastmessageID}&groupid=${groupid}`)
+        const messages = await axios.get(`http://18.182.30.227/message/getmessage?messageid=${lastmessageID}&groupid=${groupid}`)
         console.log(messages.data.messages);
         const localmsgs = JSON.parse(localStorage.getItem(`${groupid}localmsgs`)) || [];
         const newmessages = messages.data.messages;
@@ -220,7 +220,7 @@ async function creategroup(){
      console.log(selectedusers); 
      
      const groupname = document.getElementById('groupname').value;
-     const addgroup = await axios.post('http://localhost:4000/group/create', {name: groupname, users:selectedusers}, {headers: {"Authorization": token}})
+     const addgroup = await axios.post('http://18.182.30.227/group/create', {name: groupname, users:selectedusers}, {headers: {"Authorization": token}})
      console.log(addgroup.data);
      const groupusers = [...selectedusers, ...user]
      socket.emit('createroom', groupusers, addgroup.id);
@@ -239,7 +239,7 @@ async function creategroup(){
 
 async function getgroups(){
     try{
-        const groupsresponse = await axios.get('http://localhost:4000/group/getgroups',{headers: {"Authorization": token}})
+        const groupsresponse = await axios.get('http://18.182.30.227/group/getgroups',{headers: {"Authorization": token}})
         console.log(groupsresponse.data.group);
         if(groupsresponse.data.group.length>0){
             const groups = groupsresponse.data.group;
@@ -271,7 +271,7 @@ async function showgrpdetails(){
         const grouplabel = document.getElementById('groupName');
         // console.log(typeof groupid);
         grouplabel.innerHTML=`${groupname}`
-        const Groupusersresponse = await axios.get(`http://localhost:4000/group/getgroupusers?groupid=${groupid}`, {headers: {"Authorization": token}});
+        const Groupusersresponse = await axios.get(`http://18.182.30.227/group/getgroupusers?groupid=${groupid}`, {headers: {"Authorization": token}});
         console.log(Groupusersresponse.data);
         const activeusers = Groupusersresponse.data.groupusers;
         const currentuserAdmin = Groupusersresponse.data.admin;
@@ -323,7 +323,7 @@ async function showgrpdetails(){
             }
                 activeusercontainer.appendChild(groupuseritem);    
             })
-            const allusersresponse = await axios.get('http://localhost:4000/user/getusers');
+            const allusersresponse = await axios.get('http://18.182.30.227/user/getusers');
             const allusers = allusersresponse.data.message;
             const selectusers = document.querySelector('.selectuserscontainer');
             selectusers.innerHTML='';
@@ -358,7 +358,7 @@ async function addtogroup(){
         })
         console.log(selectedusers); 
         const groupid = localStorage.getItem('Activegrp');
-        const addtogroup = await axios.post('http://localhost:4000/group/adduser', {groupid: groupid, users:selectedusers}, {headers: {"Authorization": token}})
+        const addtogroup = await axios.post('http://18.182.30.227/group/adduser', {groupid: groupid, users:selectedusers}, {headers: {"Authorization": token}})
         console.log(addtogroup.data);
        // notifyUser(addgroup.data.message);
     //    window.location.reload();
@@ -377,7 +377,7 @@ async function shownewgroup(){
     try {
      createcard.style='display: flex;';
      const currentuser = localStorage.getItem('currentuser')
-     const usersresponse = await axios.get('http://localhost:4000/user/getusers');
+     const usersresponse = await axios.get('http://18.182.30.227/user/getusers');
      const users = usersresponse.data.message;
      usercontainer.innerHTML='';
      users.forEach(user=>{
@@ -403,7 +403,7 @@ async function shownewgroup(){
 async function removeuser(id){
     try {
         const groupid = localStorage.getItem('Activegrp');
-        const deleteuserreponse = await axios.put(`http://localhost:4000/group/removeuser`,{groupid: groupid, userid: id}, {headers: {"Authorization": token}});
+        const deleteuserreponse = await axios.put(`http://18.182.30.227/group/removeuser`,{groupid: groupid, userid: id}, {headers: {"Authorization": token}});
         console.log(deleteuserreponse.data.message);
         // window.location.reload();
         closecard(usercard);
@@ -417,7 +417,7 @@ async function removeuser(id){
 async function changeadminaccess(id){
     try {
         const groupid = localStorage.getItem('Activegrp');
-        const edituserresponse  = await axios.put('http://localhost:4000/group/changeaccess', {userid: id, groupid: groupid}, {headers: {"Authorization": token}});
+        const edituserresponse  = await axios.put('http://18.182.30.227/group/changeaccess', {userid: id, groupid: groupid}, {headers: {"Authorization": token}});
         console.log(edituserresponse.data);
         // window.location.reload();
         closecard(usercard);

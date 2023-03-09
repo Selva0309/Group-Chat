@@ -15,7 +15,7 @@ function signup(){
     const password = document.getElementById('password').value;
     console.log(name, phone, email, password);
 
-    axios.post('http://localhost:4000/user/signup',{name: name, phone: phone, email:email, password:password})
+    axios.post('http://18.182.30.227/user/signup',{name: name, phone: phone, email:email, password:password})
     .then((response)=>{
         if(response.status==201){
         message = response.data.message;
@@ -64,7 +64,7 @@ async function login(){
     const email = document.getElementById('useremail').value;
     const password = document.getElementById('userpassword').value;
     console.log(email, password);
-    const loginresponse = await axios.post('http://localhost:4000/user/login',{email:email, password:password})
+    const loginresponse = await axios.post('http://18.182.30.227/user/login',{email:email, password:password})
     console.log(loginresponse);
     const message = loginresponse.data.message;
     const success = loginresponse.data.success;
@@ -96,7 +96,7 @@ document.querySelector('.forgot-btn').addEventListener('click', forgotpasswordpa
 function sendEmail(){
     const emailID = document.getElementById('forgotemail').value;
     console.log(emailID)
-    axios.post('http://localhost:4000/password/forgotpassword', {emailID})
+    axios.post('http://18.182.30.227/password/forgotpassword', {emailID})
     .then(response=>{
         console.log(response);
         if(response.data.success){
