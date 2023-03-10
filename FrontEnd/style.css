@@ -806,8 +806,8 @@ li {
 }    
 .sendmessage{
     width: inherit;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    height: 15%;
+    background-color: rgba(0, 0, 0, 0.9);
     margin: 0.5% 0;
     padding: 1%;
     border-radius: 5px;
@@ -881,7 +881,7 @@ li {
 }
 
 .Otheruser{
-    width: 70%;
+    width: 50%;
     background: linear-gradient(315deg,#360442,#060542);
     display: flex;
     flex-direction: column;
