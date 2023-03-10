@@ -36,10 +36,10 @@ const socketFunctions = require('./middleware/socketfunctions')(io);
 
 
 //Static paths
-app.use(express.static(path.join(__dirname,'Frontend')));
-app.use(express.static(path.join(__dirname,'Frontend','login')));
-app.use(express.static(path.join(__dirname,'Frontend','Chats')));
-app.use(express.static(path.join(__dirname,'Frontend', 'password')));
+app.use(express.static(path.join(__dirname,'FrontEnd')));
+app.use(express.static(path.join(__dirname,'FrontEnd','login')));
+app.use(express.static(path.join(__dirname,'FrontEnd','Chats')));
+app.use(express.static(path.join(__dirname,'FrontEnd', 'password')));
 
 
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -64,7 +64,7 @@ app.use('/group', grouproute);
 app.use('/password', passwordroute);
 
 app.use((req,res)=>{
-    res.sendFile(path.join(__dirname, "Frontend/login/Loginsignup.html"))
+    res.sendFile(path.join(__dirname, "FrontEnd/login/Loginsignup.html"))
 })
 
 
