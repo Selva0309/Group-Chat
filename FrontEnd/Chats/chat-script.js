@@ -70,6 +70,7 @@ function showgroup(groupname, groupID){
     header.innerHTML='';
     chatwindow.innerHTML='';
     header.innerHTML=`
+    <button class="closebtn mobile" onclick="closechat()">&#8249;</button>
     <img src="../Group icon.png" alt="Groupicon">
     <div class='header-center'>
     <button alt='Adduser' id='headerbtn' onclick='showgrpdetails()'>${groupname}</button>
@@ -426,4 +427,8 @@ async function changeadminaccess(id){
     } catch (error) {
         console.log(error);        
     }
+}
+
+function closechat() {
+    document.querySelector('.chatcontainer').style = "display:none; transform: translateY(0);"
 }

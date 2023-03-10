@@ -43,8 +43,8 @@ exports.resetpassword = (req,res,next)=>{
   Uuid.findOne({where: {id: id}}).then(uuid=>{
     if(uuid){
       uuid.update({ isactive: false});
-      res.sendFile('Passwordreset.html', {root:path.join(__dirname, "..", 'Frontend',"password")});
-      console.log(path.join(__dirname, "..", 'Frontend','Passwordreset.html'));
+      res.sendFile('Passwordreset.html', {root:path.join(__dirname, "..", 'FrontEnd',"password")});
+      console.log(path.join(__dirname, "..", 'FrontEnd','Passwordreset.html'));
       // res.status(200).send(
       // `<!DOCTYPE html>
       // <html lang="en"> 
