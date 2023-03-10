@@ -817,6 +817,7 @@ li {
 .sendmessage input{
     width: 80%;
     height: 60%;
+    margin: 1% 0;
     padding: 1%;
     background-color: inherit;
     border: 2px solid #dcace8;
@@ -831,7 +832,7 @@ li {
     margin: 1%;
     transform: translateY(-8%);
     z-index: 1;
-    width: 95%;
+    width: 98%;
     height: 85%;
 
 }
@@ -841,7 +842,7 @@ li {
 
 .multimedia form input{
     height: 90%;
-    width: 85%;
+    width: 80%;
 }
 .send-btn{
     width: 12%;
