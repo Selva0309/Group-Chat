@@ -824,6 +824,7 @@ li {
     border-radius: 5px;
     overflow: hidden;
     font-size: 15px;
+    font-weight: bold;
     color: #F25922;
 }
 .multimedia{
@@ -841,7 +842,7 @@ li {
 }
 
 .multimedia form input{
-    height: 90%;
+    height: 60%;
     width: 80%;
 }
 .send-btn{
