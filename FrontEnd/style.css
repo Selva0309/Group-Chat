@@ -1148,7 +1148,7 @@ a:hover{
     }
 
     .headerbar img{
-        margin-left: 20%;
+        margin-left: 17%;
     }
     .chatwindow{
         height: 85vh;
@@ -1210,10 +1210,24 @@ a:hover{
         
     }
     .You, .Otheruser{
-        width: 75%;
+        width: 78%;
     }
     .notification {
         width: 60%;
-        max-width: 90%;
+        max-width: 100%;
+        font-size: 12px;
+    }
+    .Otheruser{
+        margin-right: 20%;
+    }
+    .You{
+        margin-left: 20%;
+    }
+
+    #text{
+        font-size: 14px;
+    }
+    #time{
+        font-size: 12px;
     }
 }
