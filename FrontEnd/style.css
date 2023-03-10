@@ -232,7 +232,7 @@ li {
     text-decoration: none;
     list-style: none;
 }
-.fa {
+.fa, .fa-sharp{
     padding: 15px;
     margin: 0 2px;
     font-size: 18px;
