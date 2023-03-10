@@ -807,7 +807,7 @@ li {
 .sendmessage{
     width: inherit;
     height: 15%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     margin: 0.5% 0;
     padding: 1%;
     border-radius: 5px;
@@ -825,7 +825,7 @@ li {
     overflow: hidden;
     font-size: 15px;
     font-weight: bold;
-    color: #F25922;
+    color: skyblue;
 }
 .multimedia{
     display: none;
@@ -844,6 +844,7 @@ li {
 .multimedia form input{
     height: 60%;
     width: 80%;
+    margin: none;
 }
 .send-btn{
     width: 12%;
