@@ -288,7 +288,7 @@ async function showgrpdetails(){
             groupuseritem.classList.add('user');
             if(groupuser.id==user && currentuserAdmin){
                     groupuseritem.innerHTML=`
-                    <span id='userName'>(You)${groupuser.name}</span>
+                    <span id='userName'>(You) ${groupuser.name}</span>
                     <span id=admin>Admin</span> 
                     `;
             }else if(groupuser.id==user && !currentuserAdmin){
