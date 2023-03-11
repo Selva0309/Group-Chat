@@ -15,7 +15,7 @@
   }
   
 .chatwindow::-webkit-scrollbar-thumb {
-    background-color: #F25922;    /* color of the scroll thumb */
+    background: linear-gradient(to right top, #b49ac2, #b685bc, #bc6eb1, #c353a1, #c92d8c);    /* color of the scroll thumb */
     border-radius: 20px;       /* roundness of the scroll thumb */
     }
 
@@ -336,6 +336,7 @@ li {
 }
 .overallpage{
     width:100%;
+    height: 100vh;
     margin-top: 1%;
     display: flex;
     flex-direction: row;
@@ -911,7 +912,7 @@ li {
 .You #name, .Otheruser #name{
     font-size: 14px;
     font-weight: bolder;
-    color: #fff;
+    color: #F25922;
     width: 100%;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.4);
@@ -1040,8 +1041,8 @@ a:hover{
 /* For Mobile Phones */
 @media only screen and (max-width: 768px) {
     body{
-        max-height: 200vh;
-        min-height: 105vh;
+        max-height: 110vh;
+        min-height: 100vh;
     }
     .header-nav{
         width: 100%;
@@ -1080,8 +1081,8 @@ a:hover{
         margin-top: 6px;
     }
 
-    .form-control label{
-        font-size: 16px;
+    label{
+        font-size: 14px;
     }
     .forgot-btn{
         width: 50%;
@@ -1098,8 +1099,10 @@ a:hover{
     }
     .overallpage{
         overflow-x: visible;
+        height: 100vh;
+        width: 97vw;
         margin-top: 3%;
-        flex-direction: column;
+        flex-direction: row;
     }
     .chatlist{
         width: 95%;
@@ -1119,9 +1122,10 @@ a:hover{
         padding: 5px 10px;
     }
     .creategroup, .userslist{
-        width: 95%;
+        width: 98%;
         height: 90vh;
-        margin: 2%;
+        margin: 1%;
+        margin-top: 2%;
 
     }
     .groupitem img, .headerbar img{
@@ -1133,9 +1137,9 @@ a:hover{
     .chatcontainer{
         width: 98%;
         height: 90vh;
-        margin: 2% auto;
-        transform: translateY(-100%);
-        background-color: #300a46;
+        margin: 1% auto;
+        transition: 0.2s ease-in-out;       
+        
     }
     .headerbar, .chatwindow, .sendmessage {
         width: 100%;
@@ -1150,12 +1154,18 @@ a:hover{
     .headerbar img{
         margin-left: 17%;
     }
+
+    #headerbtn{
+        font-size: 20px;
+    }
     .chatwindow{
         height: 85vh;
         margin: 1% auto;
+        /* background: linear-gradient(to right top, #b49ac2, #b685bc, #bc6eb1, #c353a1, #c92d8c); */
     }
     .sendmessage{
         height: 10vh;
+        background-color: rgba(0, 0, 0, 0.7);
     }
     .textmessage, .multimedia{
         width: 98%;
@@ -1211,21 +1221,32 @@ a:hover{
     }
     .You, .Otheruser{
         width: 78%;
+        margin-top: 2%;
+        
     }
     .notification {
-        width: 60%;
+        width: 75%;
         max-width: 100%;
         font-size: 12px;
+        margin: 2% auto;
     }
     .Otheruser{
-        margin-right: 20%;
+        margin-right: 18%;
     }
     .You{
         margin-left: 20%;
     }
 
+    #name{
+        color: #FEBE10;
+        font-size: 12px;
+    }
+
     #text{
-        font-size: 14px;
+        font-size: 12px;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        padding: 1%;
     }
     #time{
         font-size: 12px;

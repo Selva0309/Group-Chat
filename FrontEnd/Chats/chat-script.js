@@ -53,6 +53,9 @@ function showgroup(groupname, groupID){
     const welcome = document.querySelector('.welcome');
     welcome.style = 'display: none;'
     document.querySelector('.chatcontainer').style = 'display: flex;'
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.chatlist').style = 'display: none;'
+      }
     const groups = document.querySelectorAll('.groupitem');
     const currentgroupitem = document.querySelectorAll('.groupitem.active');
     groups.forEach(group=>{
@@ -430,5 +433,6 @@ async function changeadminaccess(id){
 }
 
 function closechat() {
-    document.querySelector('.chatcontainer').style = "display:none; transform: translateY(0);"
+    document.querySelector('.chatcontainer').style = "display:none;"
+    document.querySelector('.chatlist').style = 'display: flex;'
 }
