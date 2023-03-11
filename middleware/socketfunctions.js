@@ -38,9 +38,11 @@ io.on("connection", async (socket) =>{
             usersocket.join(`room-${groupid}`);
             
             console.log(`User ${user} has joined the room`);
-            io.to(`room-${groupid}`).emit('refreshgroup')
+            io.to(`room-${groupid}`).emit('refreshgroup');
+            io.to(`room-${groupid}`).emit('refreshmsg', groupid);
           } else {
             console.error(`User ${user} not found`);
+
           }
         
       });
